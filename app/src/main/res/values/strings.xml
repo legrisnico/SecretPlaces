@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Secret Places</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="map">Carte</string>
+    <string name="list">Liste</string>
+    <string name="refresh">actualiser</string>
+    <string name="add_place">Ajouter un lieu</string>
+    <string name="title_activity_add_place">Ajouter un lieu</string>
+    <string name="off">off</string>
+    <string name="on">on</string>
+    <string name="auto">auto</string>
+    <string name="no_camera">l\'appareil ne dispose pas d\'une caméra, veuillez acheter du materiel récent</string>
+    <string name="take_picture">Prendre une photo</string>
+    <string name="add">Ajouter</string>
+    <string name="cancel">Quitter</string>
+
+</resources>

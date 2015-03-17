@@ -1,0 +1,38 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="fr.jackdaw.secretplaces.Map" >
+
+    <LinearLayout
+        android:id="@+id/map_layout_menu"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true" >
+
+        <Button
+            android:id="@+id/map_button_map"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:text="@string/map"
+            android:background="@drawable/btn_menu_selected"/>
+
+        <Button
+            android:id="@+id/map_button_list"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:text="@string/list"
+            android:background="@drawable/btn_menu" />
+
+    </LinearLayout>
+    
+    <android.support.v4.view.ViewPager
+            android:id="@+id/map_viewpager"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/map_layout_menu" />
+
+</RelativeLayout>

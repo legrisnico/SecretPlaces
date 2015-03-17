@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item><layer-list>
+            <item><shape>
+                    <solid android:color="@color/white" />
+                </shape></item>
+
+            <!-- This is the line -->
+            <item android:bottom="4dp" android:left="0dp" android:right="0dp" android:top="0dp"><shape>
+                    <solid android:color="@color/color_app" />
+                </shape></item>
+        </layer-list></item>
+
+</selector>
