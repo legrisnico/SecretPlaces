@@ -109,7 +109,7 @@ public class CustomListAdapter extends BaseAdapter{
 			myPlaceHolder.titleText.setTextColor(mActivity.getResources().getColor(R.color.red));
 		}
 		myPlaceHolder.titleText.setText(entry.getName());
-		myPlaceHolder.distance.setText(entry.getDistance()+" mètres");
+		myPlaceHolder.distance.setText(entry.getDistance()+" mÃ¨tres");
 		
 		setPictureCard(entry.getUrlPicture(), myPlaceHolder.imagePlace);
 		myPlaceHolder.layout.setOnClickListener(new OnClickListener() {
@@ -122,10 +122,10 @@ public class CustomListAdapter extends BaseAdapter{
 	 
 				// set the custom dialog components - text, image and button
 				TextView distance = (TextView) dialog.findViewById(R.id.popup_txt_distance);
-				distance.setText(entry.getDistance()+" mètres");
+				distance.setText(entry.getDistance()+" mï¿½tres");
 				TextView description = (TextView) dialog.findViewById(R.id.popup_txt_description);
 				if(entry.getDescription()==null){
-					description.setText("Histoire du lieu : C'est un mystère");
+					description.setText("Histoire du lieu : C'est un mystï¿½re");
 				}else{
 					description.setText("Histoire du lieu : "+entry.getDescription());
 				}
