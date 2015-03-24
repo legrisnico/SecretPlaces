@@ -78,3 +78,7 @@ $RECYCLE.BIN/
 /.idea/libraries
 .DS_Store
 /build
+
+.idea/gradle.xml
+.idea/misc.xml
+app/app.iml
