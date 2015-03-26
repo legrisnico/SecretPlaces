@@ -7,4 +7,10 @@ public class Constants {
 	public static final float MAP_ZOOM = 11;
 	public static final int SIZE_THUMBNAIL = 200;
 	public static final float MAP_ZOOM_SELECTED = 16;
+    public static final String TITLE = "Titre";
+    public static final String DESCRIPTION = "Description";
+    public static final String URLIMAGE = "URLImage";
+    public static final String LATITUDE = "Lattitude";
+    public static final String LONGITUDE = "Longitude";
+    public static final String ACTIVITY = "activity";
 }

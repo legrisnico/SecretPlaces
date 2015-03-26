@@ -306,13 +306,23 @@ public class AddPlace extends ActionBarActivity {
 		};
 
 		progessDialog = new ProgressDialog(this);
-		progessDialog.setMessage("Envoi de votre place secrète ...");
+		progessDialog.setMessage("Envoi de votre place secrÃ©te ...");
 		progessDialog.setCancelable(false);
 		progessDialog.show();
-		
-		client.get(Constants.URL_API+"?func=record&titre="+name+"&lat="+latt+"&lon="+longi+"&filename="+(txtTitle.getText().toString()+timeStamp).replaceAll(" ", "")+"&description="+txtDescription.getText().toString(), null, responseHandler);
 
-	}
+        RequestParams params = new RequestParams();
+        params.add(Constants.TITLE ,name);
+        params.add(Constants.DESCRIPTION ,txtDescription.getText().toString());
+        // TODO mettre URL de l'image
+        params.add(Constants.URLIMAGE , "");
+        params.add(Constants.LATITUDE , String.valueOf(latt));
+        params.add(Constants.LONGITUDE , String.valueOf(longi));
+
+        //client.put(Constants.URL_API+"?func=record&titre="+name+"&lat="+latt+"&lon="+longi+"&filename="+(txtTitle.getText().toString()+timeStamp).replaceAll(" ", "")+"&description="+txtDescription.getText().toString(), null, responseHandler);
+        client.post(Constants.URL_API, params, responseHandler);
+
+
+    }
 
 	public void sendPicture() {
 		AsyncHttpClient client = new AsyncHttpClient(true, 80, 443);
