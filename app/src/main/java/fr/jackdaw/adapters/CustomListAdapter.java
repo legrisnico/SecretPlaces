@@ -127,6 +127,7 @@ public class CustomListAdapter extends BaseAdapter{
 				TextView description = (TextView) dialog.findViewById(R.id.popup_txt_description);
 				if(entry.getDescription()==null){
 					description.setText(R.string.placeHistoryEmpty);
+
 				}else{
 					description.setText(R.string.placeHistory+entry.getDescription());
 				}

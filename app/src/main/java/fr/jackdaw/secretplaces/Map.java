@@ -70,7 +70,8 @@ public class Map extends ActionBarActivity {
 		initialisationActionBar();
 		initFields();
 
-		/** Impl�mentation et initialisation du viewPager des cartes */
+		/** Implémentation et initialisation du viewPager des cartes */
+
 		mViewPager = (ViewPager) findViewById(R.id.map_viewpager);
 		System.out.println(getSupportFragmentManager());
 		System.out.println(this);
