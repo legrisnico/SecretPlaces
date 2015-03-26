@@ -42,12 +42,12 @@ import fr.jackdaw.utils.SSLCertificateHandler;
 
 public class Map extends ActionBarActivity {
 
-	private static final int DISTANCE = 1;
-	private static MainPageAdapter pageAdapter;
-	private static ViewPager mViewPager;
-	private static Button btnMap;
-	private static Button btnList;
-	private static int currentPage;
+	private final int DISTANCE = 1;
+	private MainPageAdapter pageAdapter;
+	private ViewPager mViewPager;
+	private Button btnMap;
+	private Button btnList;
+	private int currentPage;
 	private Date date_actuelle;
 	private Location myLocation;
 	private float longitude;
@@ -70,7 +70,7 @@ public class Map extends ActionBarActivity {
 		initialisationActionBar();
 		initFields();
 
-		/** Implémentation et initialisation du viewPager des cartes */
+		/** Implï¿½mentation et initialisation du viewPager des cartes */
 		mViewPager = (ViewPager) findViewById(R.id.map_viewpager);
 		System.out.println(getSupportFragmentManager());
 		System.out.println(this);
@@ -127,7 +127,7 @@ public class Map extends ActionBarActivity {
 		refreshPlaces();
 	}
 	
-	public static void callOnResume(){
+	public void callOnResume(){
 		if (goToTheMap == true){
 			currentPage = 0;
 			mViewPager.setCurrentItem(currentPage);

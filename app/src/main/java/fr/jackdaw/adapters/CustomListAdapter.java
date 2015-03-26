@@ -122,10 +122,10 @@ public class CustomListAdapter extends BaseAdapter{
 	 
 				// set the custom dialog components - text, image and button
 				TextView distance = (TextView) dialog.findViewById(R.id.popup_txt_distance);
-				distance.setText(entry.getDistance()+" m�tres");
+				distance.setText(entry.getDistance()+" mètres");
 				TextView description = (TextView) dialog.findViewById(R.id.popup_txt_description);
 				if(entry.getDescription()==null){
-					description.setText("Histoire du lieu : C'est un myst�re");
+					description.setText("Histoire du lieu : C'est un mystére");
 				}else{
 					description.setText("Histoire du lieu : "+entry.getDescription());
 				}
@@ -148,7 +148,7 @@ public class CustomListAdapter extends BaseAdapter{
 						Map.current_point_longitude = entry.getCurrent_point_longitude();
 						
 						Map.goToTheMap = true;
-						Map.callOnResume();
+                        ((Map)mActivity).callOnResume();
 						dialog.dismiss();
 					
 					}
