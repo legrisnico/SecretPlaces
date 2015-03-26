@@ -224,7 +224,7 @@ public class Map extends ActionBarActivity {
 
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		String pathToOurFile = Environment.getExternalStorageDirectory().getPath() + "/foldername/" + date_actuelle.toString();
-		System.out.println("photo prise");
+		//System.out.println("photo prise");
 	}
 
 	public void refreshPlaces(){
@@ -270,7 +270,6 @@ public class Map extends ActionBarActivity {
 						e.printStackTrace();
 					}
 				}
-				System.out.println("taille "+listePlaces.size());
 				Collections.sort(listePlaces, new Place.ComparateurPLace());
 				adapter = new CustomListAdapter(activity, listePlaces, context);
 				fragmentList.getList().setAdapter(adapter);

@@ -1,20 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- Nom de l'appli -->
     <string name="app_name">Secret Places</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+
+    <!-- Page principale (Map) -->
     <string name="map">Carte</string>
     <string name="list">Liste</string>
-    <string name="refresh">actualiser</string>
+    <string name="refresh">Actualiser</string>
     <string name="add_place">Ajouter un lieu</string>
-    <string name="title_activity_add_place">Ajouter un lieu</string>
-    <string name="off">off</string>
-    <string name="on">on</string>
-    <string name="auto">auto</string>
-    <string name="no_camera">l\'appareil ne dispose pas d\'une caméra, veuillez acheter du materiel récent</string>
+
+    <!-- Page de creation de lieu -->
+    <string name="no_camera">L\'appareil ne dispose pas d\'une caméra, veuillez acheter du materiel récent</string>
     <string name="take_picture">Prendre une photo</string>
     <string name="add">Ajouter</string>
     <string name="cancel">Quitter</string>
+
+    <!-- Pop Up -->
+    <string name="meter">mètre</string>
+    <string name="placeHistoryEmpty">Histoire du lieu : C\'est un mystère.</string>
+    <string name="placeHistory">Histoire du lieu :</string>
 
 </resources>
