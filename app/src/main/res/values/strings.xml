@@ -8,7 +8,7 @@
     <string name="map">Carte</string>
     <string name="list">Liste</string>
     <string name="refresh">Actualiser</string>
-    <string name="add_place">Ajouter un lieu</string>
+    <string name="title_activity_add_place">Ajouter un lieu</string>
 
     <!-- Page de creation de lieu -->
     <string name="no_camera">L\'appareil ne dispose pas d\'une caméra, veuillez acheter du materiel récent</string>
@@ -20,5 +20,6 @@
     <string name="meter">mètre</string>
     <string name="placeHistoryEmpty">Histoire du lieu : C\'est un mystère.</string>
     <string name="placeHistory">Histoire du lieu :</string>
+    <string name="action_settings">settings</string>
 
 </resources>
