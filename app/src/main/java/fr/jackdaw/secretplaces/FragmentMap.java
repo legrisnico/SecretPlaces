@@ -22,21 +22,16 @@ import fr.jackdaw.utils.Constants;
 
 public class FragmentMap extends Fragment {
 
-	private FragmentManager fm;
-	private Activity activity;
-	private Context mContext;
 	public MapView mMapView;
 	private GoogleMap googleMap;
-	private Location location;
 	private Location myLocation;
 	private boolean premierAffichage = true;
 
-	public FragmentMap(FragmentManager fragmentManager,
-			Activity activity) {
-		this.fm = fragmentManager;
-		this.activity = activity;
-		mContext = this.activity.getApplicationContext();
-	}
+    public static final FragmentMap newInstance()
+    {
+        FragmentMap fragment = new FragmentMap();
+        return fragment ;
+    }
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -87,7 +82,7 @@ public class FragmentMap extends Fragment {
 
 		googleMap.setMyLocationEnabled(true);
 		
-		LocationManager locationManager = (LocationManager)activity.getSystemService(Context.LOCATION_SERVICE); 
+		LocationManager locationManager = (LocationManager)getActivity().getSystemService(Context.LOCATION_SERVICE);
         myLocation = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
 
 		if(premierAffichage ){

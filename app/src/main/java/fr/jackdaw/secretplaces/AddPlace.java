@@ -91,8 +91,8 @@ public class AddPlace extends ActionBarActivity {
         initFields();
         initialisationActionBar();
 
-        if(checkCameraHardware(this)) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+        if (checkCameraHardware(this)) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 final CameraLollipop camera = CameraLollipop.newInstance();
                 if (null == savedInstanceState) {
                     getFragmentManager().beginTransaction()
@@ -107,7 +107,7 @@ public class AddPlace extends ActionBarActivity {
                         camera.takePicture();
                     }
                 });
-            }else{
+            } else {
 
                 btnTakePicture.setOnClickListener(new OnClickListener() {
 
@@ -118,7 +118,7 @@ public class AddPlace extends ActionBarActivity {
                 });
 
             }
-        }else{
+        } else {
             btnTakePicture.setEnabled(false);
         }
 
@@ -161,12 +161,12 @@ public class AddPlace extends ActionBarActivity {
     }
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
         finish();
         overridePendingTransition(R.anim.pull_in_from_top, R.anim.pull_out_to_top);
     }
 
-    public void initFields(){
+    public void initFields() {
         txtTitle = (EditText) findViewById(R.id.add_place_edttext_title);
         txtDescription = (EditText) findViewById(R.id.add_place_txt_description);
         btnTakePicture = (ImageButton) findViewById(R.id.add_place_btn_take_picture);
@@ -201,8 +201,8 @@ public class AddPlace extends ActionBarActivity {
         client.setTimeout(999999999);
         JsonHttpResponseHandler responseHandler = new JsonHttpResponseHandler() {
 
-            public void onSuccess(int statusCode,org.apache.http.Header[] headers,org.json.JSONObject response) {
-                System.out.println("success"+response);
+            public void onSuccess(int statusCode, org.apache.http.Header[] headers, org.json.JSONObject response) {
+                System.out.println("success" + response);
                 try {
                     id = response.getString("id");
                 } catch (JSONException e) {
@@ -212,8 +212,8 @@ public class AddPlace extends ActionBarActivity {
                 sendPicture();
             }
 
-            public void onFailure(int statusCode,org.apache.http.Header[] headers, Throwable throwable,	org.json.JSONObject response) {
-                System.out.println("failure json"+response);
+            public void onFailure(int statusCode, org.apache.http.Header[] headers, Throwable throwable, org.json.JSONObject response) {
+                System.out.println("failure json" + response);
                 try {
                     id = response.getString("id");
                 } catch (JSONException e) {
@@ -223,19 +223,29 @@ public class AddPlace extends ActionBarActivity {
                 sendPicture();
             }
 
-            public void onFailure(int statusCode,org.apache.http.Header[] headers,String result, Throwable throwable) {
-                System.out.println("failure string"+result);
+            public void onFailure(int statusCode, org.apache.http.Header[] headers, String result, Throwable throwable) {
+                System.out.println("failure string" + result);
                 id = result;
                 sendPicture();
             }
         };
 
         progessDialog = new ProgressDialog(this);
-        progessDialog.setMessage("Envoi de votre place secr�te ...");
+        progessDialog.setMessage("Envoi de votre place secréte ...");
         progessDialog.setCancelable(false);
         progessDialog.show();
 
-        client.get(Constants.URL_API+"?func=record&titre="+name+"&lat="+latt+"&lon="+longi+"&filename="+(txtTitle.getText().toString()+timeStamp).replaceAll(" ", "")+"&description="+txtDescription.getText().toString(), null, responseHandler);
+        RequestParams params = new RequestParams();
+        params.add(Constants.TITLE, name);
+        params.add(Constants.DESCRIPTION, txtDescription.getText().toString());
+        // TODO mettre URL de l'image
+        params.add(Constants.URLIMAGE, "");
+        params.add(Constants.LATITUDE, String.valueOf(latt));
+        params.add(Constants.LONGITUDE, String.valueOf(longi));
+
+        //client.put(Constants.URL_API+"?func=record&titre="+name+"&lat="+latt+"&lon="+longi+"&filename="+(txtTitle.getText().toString()+timeStamp).replaceAll(" ", "")+"&description="+txtDescription.getText().toString(), null, responseHandler);
+        client.post(Constants.URL_API, params, responseHandler);
+
 
     }
 
@@ -246,34 +256,34 @@ public class AddPlace extends ActionBarActivity {
         RequestParams params = new RequestParams();
 
         params.add("image", BitMapToString(bmpResized));
-        params.add("filename", (txtTitle.getText().toString()+timeStamp).replaceAll(" ", ""));
+        params.add("filename", (txtTitle.getText().toString() + timeStamp).replaceAll(" ", ""));
         params.add("id", id);
 
         try {
-            params.add("image", URLEncoder.encode(BitMapToString(bmpResized),"UTF-8"));
+            params.add("image", URLEncoder.encode(BitMapToString(bmpResized), "UTF-8"));
         } catch (UnsupportedEncodingException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
         JsonHttpResponseHandler responseHandler = new JsonHttpResponseHandler() {
 
-            public void onSuccess(int statusCode,org.apache.http.Header[] headers,org.json.JSONObject response) {
-                System.out.println("success"+response);
+            public void onSuccess(int statusCode, org.apache.http.Header[] headers, org.json.JSONObject response) {
+                System.out.println("success" + response);
                 progessDialog.dismiss();
                 finish();
                 overridePendingTransition(R.anim.pull_in_from_top, R.anim.pull_out_to_top);
             }
 
-            public void onFailure(int statusCode,org.apache.http.Header[] headers, Throwable throwable,	org.json.JSONObject response) {
-                System.out.println("failure json"+response);
+            public void onFailure(int statusCode, org.apache.http.Header[] headers, Throwable throwable, org.json.JSONObject response) {
+                System.out.println("failure json" + response);
                 progessDialog.dismiss();
                 finish();
                 overridePendingTransition(R.anim.pull_in_from_top, R.anim.pull_out_to_top);
 
             }
 
-            public void onFailure(int statusCode,org.apache.http.Header[] headers,String result, Throwable throwable) {
-                System.out.println("failure string"+result);
+            public void onFailure(int statusCode, org.apache.http.Header[] headers, String result, Throwable throwable) {
+                System.out.println("failure string" + result);
                 progessDialog.dismiss();
                 finish();
                 overridePendingTransition(R.anim.pull_in_from_top, R.anim.pull_out_to_top);
@@ -289,22 +299,23 @@ public class AddPlace extends ActionBarActivity {
      * @param bitmap
      * @return converting bitmap and return a string
      */
-    public String BitMapToString(Bitmap bitmap){
-        ByteArrayOutputStream baos=new  ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG,10, baos);
-        byte [] b=baos.toByteArray();
-        String temp=Base64.encodeToString(b, Base64.DEFAULT);
+    public String BitMapToString(Bitmap bitmap) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 10, baos);
+        byte[] b = baos.toByteArray();
+        String temp = Base64.encodeToString(b, Base64.DEFAULT);
         return temp;
     }
 
 
     /**
      * check if the device has camera
+     *
      * @param context
      * @return true if camera exist false else
      */
     private boolean checkCameraHardware(Context context) {
-        if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)){
+        if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
             return true;
         } else {
             return false;
@@ -313,14 +324,14 @@ public class AddPlace extends ActionBarActivity {
 
     /**
      * get camera instance
+     *
      * @return
      */
-    public static Camera getCameraInstance(){
+    public static Camera getCameraInstance() {
         Camera c = null;
         try {
             c = Camera.open(); // attempt to get a Camera instance
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             // Camera is not available (in use or does not exist)
         }
         return c; // returns null if camera is unavailable

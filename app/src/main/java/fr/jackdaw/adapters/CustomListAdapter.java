@@ -148,7 +148,7 @@ public class CustomListAdapter extends BaseAdapter{
 						Map.current_point_longitude = entry.getCurrent_point_longitude();
 						
 						Map.goToTheMap = true;
-						Map.callOnResume();
+                        ((Map)mActivity).callOnResume();
 						dialog.dismiss();
 					
 					}
