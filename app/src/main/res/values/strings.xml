@@ -16,6 +16,9 @@
     <string name="add">Ajouter</string>
     <string name="cancel">Quitter</string>
     <string name="your_history">Votre histoire</string>
+    <string name="gps_disabled">Localisation désactivée</string>
+    <string name="turn_on_gps">Afin d\'utiliser cette application veuillez activer le gps du terminal</string>
+    <string name="activate">Activer</string>
 
     <!-- Pop Up -->
     <string name="meter">mètre</string>

@@ -108,7 +108,9 @@ public class CustomListAdapter extends BaseAdapter{
 		}
 		if (entry.getName().contains("Illuminations")){
 			myPlaceHolder.titleText.setTextColor(mActivity.getResources().getColor(R.color.red));
-		}
+		}else{
+            myPlaceHolder.titleText.setTextColor(mActivity.getResources().getColor(R.color.black));
+        }
 		myPlaceHolder.titleText.setText(entry.getName());
 		myPlaceHolder.distance.setText(String.format("%s %s", entry.getDistance(), R.string.meter));
 		

@@ -10,12 +10,15 @@ import modele.Place;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.Settings;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v7.app.ActionBar;
@@ -231,10 +234,29 @@ public class Map extends ActionBarActivity {
 	public void refreshPlaces(){
 		LocationManager locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE); 
 		myLocation = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
-		longitude = (float) myLocation.getLongitude();
-		latitude = (float) myLocation.getLatitude();
+        if(myLocation != null) {
+            longitude = (float) myLocation.getLongitude();
+            latitude = (float) myLocation.getLatitude();
 
-		getPlaces(DISTANCE, longitude, latitude);
+            getPlaces(DISTANCE, longitude, latitude);
+        }else{
+            new AlertDialog.Builder(this)
+                    .setTitle(getResources().getString(R.string.gps_disabled))
+                    .setMessage(getResources().getString(R.string.turn_on_gps))
+                    .setPositiveButton(getResources().getString(R.string.activate), new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                            startActivity(intent);
+                        }
+                    })
+                    .setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    })
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+        }
 	}
 
 	public void getPlaces(int distance, float longi, float latt) {
