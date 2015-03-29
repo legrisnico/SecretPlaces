@@ -34,6 +34,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -277,6 +278,7 @@ public class Map extends ActionBarActivity {
 						JSONObject place = response.getJSONObject(i+"");
 						
 						//map
+
 						fragmentMap.getMap().addMarker(new MarkerOptions()
 						.position(new LatLng(place.getDouble("2"), place.getDouble("3")))
 						.icon(BitmapDescriptorFactory.fromResource(R.drawable.bird))
@@ -288,6 +290,7 @@ public class Map extends ActionBarActivity {
 
 						//liste
 						listePlaces.add(myPlace);
+
 					} catch (JSONException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -296,6 +299,7 @@ public class Map extends ActionBarActivity {
 				Collections.sort(listePlaces, new Place.ComparateurPLace());
 				adapter = new CustomListAdapter(activity, listePlaces, context);
 				fragmentList.getList().setAdapter(adapter);
+                fragmentMap.places = listePlaces;
 			}
 
 			public void onFailure(int statusCode,org.apache.http.Header[] headers, Throwable throwable,	org.json.JSONObject response) {
