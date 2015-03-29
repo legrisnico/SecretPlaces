@@ -112,7 +112,7 @@ public class CustomListAdapter extends BaseAdapter{
             myPlaceHolder.titleText.setTextColor(mActivity.getResources().getColor(R.color.black));
         }
 		myPlaceHolder.titleText.setText(entry.getName());
-		myPlaceHolder.distance.setText(String.format("%s %s", entry.getDistance(), R.string.meter));
+		myPlaceHolder.distance.setText(String.format("%s %s", entry.getDistance(), mActivity.getResources().getString(R.string.meter)));
 		
 		setPictureCard(entry.getUrlPicture(), myPlaceHolder.imagePlace);
 		myPlaceHolder.layout.setOnClickListener(new OnClickListener() {
@@ -125,13 +125,13 @@ public class CustomListAdapter extends BaseAdapter{
 	 
 				// set the custom dialog components - text, image and button
 				TextView distance = (TextView) dialog.findViewById(R.id.popup_txt_distance);
-				distance.setText(String.format("%s %s", entry.getDistance(), R.string.meter));
+				distance.setText(String.format("%s %s", entry.getDistance(), mActivity.getResources().getString(R.string.meter)));
 				TextView description = (TextView) dialog.findViewById(R.id.popup_txt_description);
 				if(entry.getDescription()==null){
-					description.setText(R.string.placeHistoryEmpty);
+					description.setText(mActivity.getResources().getString(R.string.placeHistoryEmpty));
 
 				}else{
-					description.setText(R.string.placeHistory+entry.getDescription());
+					description.setText(mActivity.getResources().getString(R.string.placeHistory)+entry.getDescription());
 				}
 				ImageView image = (ImageView) dialog.findViewById(R.id.popup_picture);
 				setPictureCard(entry.getUrlPicture(), image);
