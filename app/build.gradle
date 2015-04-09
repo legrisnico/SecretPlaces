@@ -18,9 +18,15 @@ android {
     }
 }
 
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
 dependencies {
     compile 'com.android.support:support-v4:22.0.0'
     compile 'com.android.support:appcompat-v7:22.0.0'
     compile 'com.google.android.gms:play-services:+'
+    compile 'com.github.markushi:circlebutton:1.1'
     compile fileTree(dir: 'libs', include: '*.jar')
 }

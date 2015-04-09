@@ -1,6 +1,5 @@
 package fr.jackdaw.secretplaces;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -11,7 +10,6 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,7 +35,7 @@ import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import java.util.List;
 
 import fr.jackdaw.utils.Constants;
-import modele.Place;
+import fr.jackdaw.modele.Place;
 
 public class FragmentMap extends Fragment {
 
@@ -92,7 +90,7 @@ public class FragmentMap extends Fragment {
             @Override
             public boolean onMarkerClick(Marker marker) {
                 final Dialog dialog = new Dialog(getActivity());
-                dialog.setContentView(R.layout.popup);
+                dialog.setContentView(R.layout.popup_details_place);
                 dialog.setTitle(marker.getTitle());
 
                 Button closeButton = (Button) dialog.findViewById(R.id.popup_btn_close);

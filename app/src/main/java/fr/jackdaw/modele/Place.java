@@ -1,4 +1,4 @@
-package modele;
+package fr.jackdaw.modele;
 
 import java.util.Comparator;
 

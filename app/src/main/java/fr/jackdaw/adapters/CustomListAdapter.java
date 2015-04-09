@@ -2,8 +2,7 @@ package fr.jackdaw.adapters;
 
 import java.util.List;
 
-import fr.jackdaw.utils.Constants;
-import modele.Place;
+import fr.jackdaw.modele.Place;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
@@ -120,7 +119,7 @@ public class CustomListAdapter extends BaseAdapter{
 			@Override
 			public void onClick(View v) {
 				final Dialog dialog = new Dialog(mContext);
-				dialog.setContentView(R.layout.popup);
+				dialog.setContentView(R.layout.popup_details_place);
 				dialog.setTitle(entry.getName());
 	 
 				// set the custom dialog components - text, image and button

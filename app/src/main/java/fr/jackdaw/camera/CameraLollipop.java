@@ -1,5 +1,7 @@
 package fr.jackdaw.camera;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -11,6 +13,8 @@ import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.graphics.ImageFormat;
 import android.graphics.Matrix;
+import android.graphics.Point;
+import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.SurfaceTexture;
 import android.hardware.camera2.CameraAccessException;
@@ -32,11 +36,20 @@ import android.os.HandlerThread;
 import android.util.Log;
 import android.util.Size;
 import android.util.SparseIntArray;
+import android.util.TypedValue;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Surface;
 import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.io.File;
@@ -52,13 +65,15 @@ import java.util.List;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
+import at.markushi.ui.CircleButton;
+import fr.jackdaw.secretplaces.AddPlace;
 import fr.jackdaw.secretplaces.R;
 
 /**
  * Created by Nicolas on 25/03/2015.
  */
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-public class CameraLollipop extends Fragment{
+public class CameraLollipop extends Fragment implements View.OnClickListener{
     /**
      * Conversion from screen rotation to JPEG orientation.
      */
@@ -304,6 +319,9 @@ public class CameraLollipop extends Fragment{
         }
 
     };
+    private CircleButton btnTakePicture;
+    private CircleButton btnValidate, btnRetry;
+    private LinearLayout layoutValidate;
 
     /**
      * Given {@code choices} of {@code Size}s supported by a camera, chooses the smallest one whose
@@ -351,6 +369,11 @@ public class CameraLollipop extends Fragment{
 
     @Override
     public void onViewCreated(final View view, Bundle savedInstanceState) {
+        btnTakePicture = (CircleButton) view.findViewById(R.id.add_place_btn_take_picture);
+        btnValidate = (CircleButton) view.findViewById(R.id.add_place_btn_validate);
+        btnRetry = (CircleButton) view.findViewById(R.id.add_place_btn_retry);
+        layoutValidate = (LinearLayout) view.findViewById(R.id.add_place_layout_validate);
+        btnTakePicture.setOnClickListener(this);
         mTextureView = (AutoFitTextureView) view.findViewById(R.id.texture);
     }
 
@@ -426,9 +449,11 @@ public class CameraLollipop extends Fragment{
                 if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
                     mTextureView.setAspectRatio(
                             mPreviewSize.getWidth(), mPreviewSize.getHeight());
+
                 } else {
                     mTextureView.setAspectRatio(
                             mPreviewSize.getHeight(), mPreviewSize.getWidth());
+
                 }
 
                 mCameraId = cameraId;
@@ -679,9 +704,11 @@ public class CameraLollipop extends Fragment{
                 public void onCaptureCompleted(CameraCaptureSession session, CaptureRequest request,
                                                TotalCaptureResult result) {
                     Toast.makeText(getActivity(), "Saved: " + mFile, Toast.LENGTH_SHORT).show();
-                    unlockFocus();
+
                 }
             };
+
+
 
             mCaptureSession.stopRepeating();
             mCaptureSession.capture(captureBuilder.build(), CaptureCallback, null);
@@ -693,9 +720,9 @@ public class CameraLollipop extends Fragment{
     /**
      * Unlock the focus. This method should be called when still image capture sequence is finished.
      */
-    private void unlockFocus() {
+    public void unlockFocus() {
         try {
-            // Reset the autofucos trigger
+            // Reset the autofocus trigger
             mPreviewRequestBuilder.set(CaptureRequest.CONTROL_AF_TRIGGER,
                     CameraMetadata.CONTROL_AF_TRIGGER_CANCEL);
             mPreviewRequestBuilder.set(CaptureRequest.CONTROL_AE_MODE,
@@ -710,6 +737,66 @@ public class CameraLollipop extends Fragment{
             e.printStackTrace();
         }
     }
+
+    public void onClick(View view) {
+
+        switch (view.getId()) {
+            case R.id.add_place_btn_take_picture:
+                final Animation animationHide = AnimationUtils.loadAnimation(getActivity().getApplicationContext(), R.anim.pull_out_to_left);
+                final Animation animationShow = AnimationUtils.loadAnimation(getActivity().getApplicationContext(), R.anim.pull_in_from_right);
+                Thread t = new Thread(new Runnable() {
+                    public void run() {
+                        takePicture();
+                    }
+                });
+                t.start();
+                try {
+                    t.join();
+                } catch (InterruptedException e) {
+
+                }
+
+                btnTakePicture.startAnimation(animationHide);
+                btnTakePicture.setVisibility(View.GONE);
+                layoutValidate.setVisibility(View.VISIBLE);
+                layoutValidate.startAnimation(animationShow);
+
+                btnRetry.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        layoutValidate.startAnimation(animationHide);
+                        layoutValidate.setVisibility(View.GONE);
+                        btnTakePicture.setVisibility(View.VISIBLE);
+                        btnTakePicture.startAnimation(animationShow);
+                        unlockFocus();
+                    }
+                });
+                btnValidate.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        final Dialog dialog = new Dialog(getActivity());
+                        dialog.setContentView(R.layout.popup_add_place);
+                        dialog.setTitle(getString(R.string.new_place));
+
+                        // set the custom dialog components - text, image and button
+                        EditText name = (EditText) dialog.findViewById(R.id.popup_add_place_edttxt_name);
+                        EditText description = (EditText) dialog.findViewById(R.id.popup_add_place_edttxt_description);
+                        Button cancel = (Button) dialog.findViewById(R.id.popup_add_place_btn_cancel);
+                        Button send = (Button) dialog.findViewById(R.id.popup_add_place_btn_send);
+
+                        cancel.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog.dismiss();
+                            }
+                        });
+                        dialog.show();
+                    }
+                });
+                break;
+        }
+    }
+
 
     /**
      * Saves a JPEG {@link android.media.Image} into the specified {@link File}.

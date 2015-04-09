@@ -1,82 +1,9 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/add_place_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="fr.jackdaw.secretplaces.AddPlace" >
 
-    <EditText
-        android:id="@+id/add_place_edttext_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:ems="10"
-        android:hint="Titre"
-        android:singleLine="true"
-        android:layout_marginTop="10dp" >
 
-        <requestFocus />
-    </EditText>
-
-    <ImageButton
-        android:id="@+id/add_place_btn_take_picture"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/add_place_edttext_title"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/bouton_camera" />
-
-    <FrameLayout
-        android:id="@+id/add_place_img_show_picture"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/add_place_btn_take_picture"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"/>
-
-    <EditText
-        android:id="@+id/add_place_txt_description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/add_place_img_show_picture"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:hint="@string/your_history"
-        android:maxLength="140" />
-
-    <LinearLayout
-        android:id="@+id/add_place_layout_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/add_place_txt_description"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="10dp" >
-
-        <Button
-            android:id="@+id/add_place_btn_cancel"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="5dp"
-            android:layout_weight="5"
-            android:background="@drawable/custom_btn"
-            android:text="@string/cancel" />
-
-        <Button
-            android:id="@+id/add_place_btn_add"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="5"
-            android:background="@drawable/custom_btn"
-            android:text="@string/add" />
-    </LinearLayout>
-
-</RelativeLayout>
+</FrameLayout>

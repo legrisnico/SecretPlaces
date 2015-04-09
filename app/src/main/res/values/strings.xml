@@ -25,5 +25,10 @@
     <string name="placeHistoryEmpty">Histoire du lieu : C\'est un mystère.</string>
     <string name="placeHistory">Histoire du lieu :</string>
     <string name="action_settings">settings</string>
+    <string name="place_name">Nom du lieu</string>
+    <string name="description">Description</string>
+    <string name="send">Envoyer</string>
+    <string name="popup_add_place_txt">Entrez les détails de votre lieu secret puis partagez le au monde</string>
+    <string name="new_place">Nouveau lieu</string>
 
 </resources>

@@ -34,8 +34,7 @@
             android:name=".Map"
             android:label="@string/app_name"
             android:icon="@drawable/logo"
-            android:theme="@style/AppActionBarTheme"
-            android:screenOrientation="portrait">
+            android:theme="@style/AppActionBarTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -46,8 +45,7 @@
             android:name=".AddPlace"
             android:label="@string/title_activity_add_place"
             android:icon="@drawable/logo"
-            android:theme="@style/AppActionBarTheme"
-            android:screenOrientation="portrait" >
+            android:theme="@style/AppActionBarTheme" >
         </activity>
     </application>
 

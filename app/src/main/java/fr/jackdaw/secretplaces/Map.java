@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-import modele.Place;
+import fr.jackdaw.modele.Place;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,6 +23,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -34,7 +35,6 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -74,7 +74,7 @@ public class Map extends ActionBarActivity {
 		initialisationActionBar();
 		initFields();
 
-		/** Implémentation et initialisation du viewPager des cartes */
+		/** Implémentation et initialisation du viewPager */
 
 		mViewPager = (ViewPager) findViewById(R.id.map_viewpager);
 		System.out.println(getSupportFragmentManager());
@@ -156,7 +156,8 @@ public class Map extends ActionBarActivity {
 	}
 	
 	public void onResume(){
-		super.onResume();
+        Log.e("ON RESUME", "passe");
+        super.onResume();
 		refreshPlaces();
 		
 		if (goToTheMap == true){
@@ -179,6 +180,27 @@ public class Map extends ActionBarActivity {
 			current_point_longitude = 0;
 			
 		}
+
+        LocationManager locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+        myLocation = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+        if(myLocation == null) {
+            new AlertDialog.Builder(this)
+                    .setTitle(getResources().getString(R.string.gps_disabled))
+                    .setMessage(getResources().getString(R.string.turn_on_gps))
+                    .setPositiveButton(getResources().getString(R.string.activate), new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                            startActivity(intent);
+                        }
+                    })
+                    .setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    })
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+        }
 	}
 
 
@@ -240,23 +262,6 @@ public class Map extends ActionBarActivity {
             latitude = (float) myLocation.getLatitude();
 
             getPlaces(DISTANCE, longitude, latitude);
-        }else{
-            new AlertDialog.Builder(this)
-                    .setTitle(getResources().getString(R.string.gps_disabled))
-                    .setMessage(getResources().getString(R.string.turn_on_gps))
-                    .setPositiveButton(getResources().getString(R.string.activate), new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                            startActivity(intent);
-                        }
-                    })
-                    .setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-
-                        }
-                    })
-                    .setIcon(android.R.drawable.ic_dialog_alert)
-                    .show();
         }
 	}
 
